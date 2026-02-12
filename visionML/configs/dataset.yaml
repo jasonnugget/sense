@@ -1,0 +1,7 @@
+# Paths are expanded from environment variables in src/train.py
+path: ${DATA_DIR}
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: class0
