@@ -8,7 +8,7 @@ import yaml
 from rich import print
 from ultralytics import YOLO
 
-from src.utils.env import load_env
+from utils.env import load_env
 
 app = typer.Typer(help="Production-ready YOLO training entrypoint.")
 
