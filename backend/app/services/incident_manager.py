@@ -1,4 +1,4 @@
-from app.schemas.incident import Incident_Report, Incident_Status, Create_Incident
+from app.schemas.incident import Incident_Report, Incident_Status, Create_Incident, IncidentStatusUpdate
 from fastapi import HTTPException
 from datetime import datetime, timezone
 
@@ -18,6 +18,7 @@ def get_a_inc(id: int):
 # Creates a incident
 def create_a_inc(information : Create_Incident):
     global next_id
+
     # creates a new incident report and fills out schema with information given
     new_inc = Incident_Report(
     id = next_id,
@@ -31,6 +32,11 @@ def create_a_inc(information : Create_Incident):
     incident_storage[next_id] = new_inc
     next_id += 1
     return new_inc
-# need to make a shcema first to make this
-## def update_incident()
+
+# updates incident (takes in id and new status)
+def update_incident(id : int, info : IncidentStatusUpdate):
+    if id not in incident_storage: # checks if id isn't in storage
+        raise HTTPException(status_code = 404, detail = "Incident Not found")
+    incident_storage[id].status = info.status # if it is replace new status with old
+    return incident_storage[id] # return incident
 

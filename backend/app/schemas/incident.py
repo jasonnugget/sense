@@ -33,3 +33,7 @@ class Create_Incident(BaseModel):
     risk_level : RiskLevel
     #objects : List[detections] = None # none right now just for tesing
     summary : Optional[str] = None
+
+
+class IncidentStatusUpdate(BaseModel):
+    status : Incident_Status
