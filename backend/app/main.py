@@ -8,4 +8,5 @@ api_prefix = "/api"
 app.include_router(health.router)
 app.include_router(camera.router, prefix = api_prefix)
 app.include_router(incidents.router, prefix = api_prefix)
+app.include_router(stream.router, prefix = api_prefix)
 

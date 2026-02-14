@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from datetime import datetime, timezone
 from app.schemas.incident import Create_Incident, Incident_Report, Incident_Status, IncidentStatusUpdate
 from app.services.incident_manager import create_a_inc, get_list_inc, get_a_inc, update_incident
+from app.routes.stream import publish
 from typing import List
 
 router = APIRouter()
@@ -27,6 +28,7 @@ def get_single_inc(id : int):
 @router.post("/incidents", response_model = Incident_Report)
 def create(skeleton : Create_Incident):
     new_inc = create_a_inc(skeleton)
+    publish(new_inc) # sends event to the queue
     return new_inc
 
 
@@ -36,5 +38,6 @@ def create(skeleton : Create_Incident):
 @router.patch("/incidents/{id}", response_model = Incident_Report)
 def update(id : int, new_status : IncidentStatusUpdate):
     updated = update_incident(id, new_status)
-    return updated
+    publish(updated) # sends event to the queue
+    return updated 
 
